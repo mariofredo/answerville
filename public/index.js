@@ -1,0 +1,1 @@
+export {default as IconSearch} from "./icon_search.png"
