@@ -1,25 +1,6 @@
-// // pages/results.js
-// import { useRouter } from 'next/router';
-
-// const ResultsPage = () => {
-//   const router = useRouter();
-//   const { searchTerm } = router.query;
-
-//   return (
-//     <section className='result_section'>
-//     <div className='container'>
-//       <h1>Results Page</h1>
-//       <p>Displaying results for: {searchTerm}</p>
-//       {/* Add your logic to fetch and display search results here */}
-//     </div>
-//     </section>
-//   );
-// };
-
-// export default ResultsPage;
-
 'use client'
 import ArticleList from '@/components/ArticleList/ArticleList';
+import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import { useRouter } from 'next/router';  // Correct import statement
 import { useEffect, useState } from 'react';
 
@@ -57,9 +38,11 @@ const ListPage = () => {
     <section className='article_section'>
       {data.length > 0 ? (
       <div className='article_list'>
-        {data.map((article) => (
-          <ArticleList key={article.slug} slug={article.slug} thumbnail={article.thumbnail} title={article.title} created_at={article.created_at} summary={article.summary}  />
-        ))}
+        <MasonryLayout>
+          {data.map((article) => (
+            <ArticleList key={article.slug} slug={article.slug} thumbnail={article.thumbnail} title={article.title} created_at={formatDate(article.created_at)} summary={article.summary}  />
+          ))}
+        </MasonryLayout>
       </div>
       ) : (
         <div className="article_list_empty">
@@ -68,6 +51,19 @@ const ListPage = () => {
       )}
     </section>
   );
+};
+const formatDate = (dateString) => {
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear().toString().slice(-2);
+
+  return `${day} ${month} ${year}'`;
 };
 
 export default ListPage;
