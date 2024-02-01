@@ -55,20 +55,17 @@ const ListPage = () => {
 
   return (
     <section className='article_section'>
+      {data.length > 0 ? (
       <div className='article_list'>
         {data.map((article) => (
           <ArticleList key={article.slug} slug={article.slug} thumbnail={article.thumbnail} title={article.title} created_at={article.created_at} summary={article.summary}  />
         ))}
       </div>
-      {/* {loading ? (
-        <p>Loading...</p>
       ) : (
-        <ul>
-          {data.map((item) => (
-            <li key={item.slug}>{item.title}</li>
-          ))}
-        </ul>
-      )} */}
+        <div className="article_list_empty">
+          <h3>More Article will be coming!</h3>
+        </div>
+      )}
     </section>
   );
 };
