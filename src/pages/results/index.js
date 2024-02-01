@@ -63,7 +63,7 @@ const ListPage = () => {
       </div>
       ) : (
         <div className="article_list_empty">
-          <h3>More Article will be coming!</h3>
+          <h3>We are sorry that we can’t find what you are looking for.</h3>
         </div>
       )}
     </section>

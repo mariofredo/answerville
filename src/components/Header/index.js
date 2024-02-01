@@ -23,7 +23,7 @@ const Header = () => {
       };
     
       const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && e.target.value.length > 0) {
           handleSearch();
         }
       };
@@ -36,7 +36,7 @@ const Header = () => {
             )}
             <div className="search_box">
                 <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} onKeyPress={handleKeyPress}></input>
-                <button className="search_btn" onClick={handleSearch} disabled={!searchTerm.trim()}>Seach</button>
+                <button className="search_btn" onClick={handleSearch} disabled={!searchTerm}>Seach</button>
             </div>
         </header>
     )
