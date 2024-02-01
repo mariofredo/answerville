@@ -7,10 +7,12 @@
   max-width: 1080px;
   margin: 0 auto;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.my-masonry-grid {
+  display: flex;
+  width: auto;
   gap: 25px;
-  grid-auto-rows: auto; /* Set the minimum height for each row */
 }
 
 .article_list_empty {
@@ -25,20 +27,24 @@
   font-size: 36px;
 }
 
+.article_list_date {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
 .article_list_box {
   width: 100%;
   overflow: hidden;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .article_list_title {
   font-weight: bold;
   font-size: 26px;
   margin-bottom: 20px;
-}
-
-.article_list_date {
-  display: none;
 }
 
 .article_list_image {
