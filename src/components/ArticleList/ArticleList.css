@@ -13,6 +13,18 @@
   grid-auto-rows: auto; /* Set the minimum height for each row */
 }
 
+.article_list_empty {
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding-top: 40px;
+  text-align: center;
+}
+.article_list_empty h3 {
+  font-size: 36px;
+}
+
 .article_list_box {
   width: 100%;
   overflow: hidden;

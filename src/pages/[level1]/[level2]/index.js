@@ -29,9 +29,9 @@ const ListPage = () => {
     const fetchData = async () => {
       try {
         if (level2) {
-          const found = fetchedData.find((key) => key.name === level1);
+          const found = fetchedData.find((key) => key.slug === level1);
           console.log(found);
-          const id = found.level_2.find((key) => key.name === level2);
+          const id = found.level_2.find((key) => key.slug === level2);
           const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${id.id}`;
           const response = await fetch(apiUrl);
           const result = await response.json();
@@ -56,18 +56,24 @@ const ListPage = () => {
 
   return (
     <section className='article_section'>
-      <div className='article_list'>
-        {data.map((article) => (
-          <ArticleList
-            key={article.slug}
-            slug={article.slug}
-            thumbnail={article.thumbnail}
-            title={article.title}
-            created_at={article.created_at}
-            summary={article.summary}
-          />
-        ))}
+      {data.length > 0 ? (
+        <div className='article_list'>
+          {data.map((article) => (
+            <ArticleList
+              key={article.slug}
+              slug={article.slug}
+              thumbnail={article.thumbnail}
+              title={article.title}
+              created_at={article.created_at}
+              summary={article.summary}
+            />
+          ))}
       </div>
+      ) : (
+        <div className='article_list_empty'>
+          <h3>More Article will be coming!</h3>
+        </div>   
+        )}
       {/* {loading ? (
         <p>Loading...</p>
       ) : (
