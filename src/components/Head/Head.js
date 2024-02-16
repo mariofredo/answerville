@@ -8,7 +8,7 @@ function MyPage() {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no"/>
         <title>Answerville</title>
-        <link rel="icon" href="../../../public/favicon.png" />
+        <link rel="icon" href="../../app/favicon.ico" />
       </Head>
     </>
   );
