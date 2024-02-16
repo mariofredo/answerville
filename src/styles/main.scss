@@ -196,6 +196,12 @@ section{
     }
 }
 @media only screen and (max-width:767px){
+    header{
+        .home_btn{
+            background: url('../../public/logo_answerville.png') no-repeat center / 40px;
+            margin-bottom: 10px;
+        }
+    }
     .search_box{
         width: calc(100% - 40px);
     }
