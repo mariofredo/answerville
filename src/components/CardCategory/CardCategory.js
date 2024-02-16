@@ -1,15 +1,23 @@
 'use client'
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import './cardcategory.css'
 
 const CardCategory = ({ category, id, image, name, level_2, level_3, showTags, setShowTags}) => {
     const router = useRouter();
+    const [isImageClicked, setIsImageClicked] = useState(false);
     const handleClick = () => {
+        const cardImages = document.querySelectorAll('.card_category_image');
         if(showTags !== name){
             setShowTags(name);
+            cardImages.forEach((card_category_image) => {
+                card_category_image.classList.remove('active');
+            });
+            setIsImageClicked(!isImageClicked);
         }
         else{
             setShowTags('');
+            setIsImageClicked(isImageClicked);
         }
     }
     const renderLevel3 = (level2slug, level3) => {
@@ -26,8 +34,10 @@ const CardCategory = ({ category, id, image, name, level_2, level_3, showTags, s
     
     return (
     <div className="card_category_box">
-        <div className="card_category_image"><img src={image} /></div>
-        <div className="card_category_name" onClick={handleClick}><span>{name}</span></div>
+        <div className={`card_category_image ${isImageClicked ? 'active' : ' '}`}>
+            <img src={image} />
+            <div className="card_category_name" onClick={handleClick}><span>{name}</span></div>
+        </div>
         {/* Level 2 and Level 3 Subcategories */}
         {showTags === name && level_2 && level_2.length > 0 && (
                 <div className="card_category_dropdown">

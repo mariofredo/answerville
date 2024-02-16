@@ -1,15 +1,14 @@
 // pages/article/[slug].js
 'use client';
-import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
-import '../../styles/main.css';
+import {useRouter} from 'next/router';
+import '../../../styles/main.css';
 
 const ArticleDetail = () => {
   const router = useRouter();
-  const {slug} = router.query;
+  const {slug, id} = router.query;
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       try {

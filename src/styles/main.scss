@@ -18,7 +18,7 @@ header{
     background: #fff;
     box-shadow: 0 0 30px rgba(0,0,0,0.15);
     z-index: 1000;
-    .search_box{
+    @at-root.search_box{
         width: 500px;
         margin:0 auto;
         display: block;
@@ -80,10 +80,11 @@ header{
 section{
     padding-top: 160px;
     &.home_section{
+        padding-top: 20px;
         .logo_box{
-            margin-bottom: 60px;
+            margin-bottom: 20px;
             img{
-                width: 180px;
+                width: 120px;
                 display: block;
                 margin:0 auto;
             }
@@ -91,8 +92,18 @@ section{
         h3{
             text-align: center;
             text-transform: uppercase;
-            font-size: 48px;
+            font-size: 40px;
             font-family: 'ProximaNovaBold';
+            margin-bottom: 20px;
+        }
+        .search_box{
+            left:auto;
+            top:auto;
+            position: relative;
+            -webkit-transform: none;
+            -moz-transform: none;
+            transform: none;
+            overflow: hidden;
         }
     }
     &.article_detail_section{
