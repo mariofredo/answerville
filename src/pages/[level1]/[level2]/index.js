@@ -2,14 +2,16 @@
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import {useRouter} from 'next/router';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 const ListPage = () => {
   const router = useRouter();
-  const {level1, level2, article} = router.query;
+  const {level1, level2} = router.query;
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  let isLoading = useRef()
 
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -30,13 +32,25 @@ const ListPage = () => {
     const fetchData = async () => {
       try {
         if (level2) {
-          const found = fetchedData.find((key) => key.slug === level1);
-          console.log(found);
-          const id = found.level_2.find((key) => key.slug === level2);
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${id.id}`;
+          // setLoading(true)
+          isLoading.current = true
+          const found1 = fetchedData.find((key) => key.slug === level1);
+          const found2 = found1.level_2.find((key) => key.slug === level2);
+          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found2.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
-          setData(result.data);
+          //setData(result.data);
+          //console.log(page);
+          setTimeout(() => {
+              setData(prevData =>{ 
+              console.log([...prevData, ...result.data], 'tes')
+              return (page === 1 ? result.data : [...prevData, ...result.data]) });
+              isLoading.current = false
+          }, 1500);
+
+          if (result.data.length === 0) {
+            window.removeEventListener('scroll', handleScroll);
+          }
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -46,23 +60,39 @@ const ListPage = () => {
       }
     };
     if (fetchedData.length > 0) {
+      console.log('fetch')
       fetchData();
     }
-  }, [fetchedData]); // Run the effect whenever article changes
+  }, [fetchedData, page]); // Run the effect whenever article changes
 
-  //   if (!article) {
-  //     // Render loading state or fallback content when article is not available
-  //     return <p>Loading...</p>;
-  //   }
+  const handleScroll = () => {
+    // Check if the user has scrolled to the bottom of the page
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+      // Increment the page number to fetch the next set of data
+      if(!isLoading.current){
+        console.log('called')
+        setPage(prevPage => prevPage + 1);}
+    }
+  };
+  
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [page]);
 
   return (
     <section className='article_section'>
-      {data.length > 0 ? (
+      {data.length > 0 && (
         <div className='article_list'>
           <MasonryLayout>
             {data.map((article) => (
               <ArticleList
-                key={article.slug}
+                key={article.id}
+                article={article}
+                id={article.id}
                 slug={article.slug}
                 thumbnail={article.thumbnail}
                 title={article.title}
@@ -72,20 +102,13 @@ const ListPage = () => {
             ))}
           </MasonryLayout>
       </div>
-      ) : (
-        <div className='article_list_empty'>
-          <h3>More Article will be coming!</h3>
-        </div>   
-        )}
-      {/* {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {data.map((item) => (
-            <li key={item.slug}>{item.title}</li>
-          ))}
-        </ul>
-      )} */}
+      )}
+      {/* Display loading message only if there's more data to load */}
+      {loading && data.length > 0 && (
+        <div className='article_list_loading'>
+          <h3>Loading more content...</h3>
+        </div>
+      )}
     </section>
   );
 };

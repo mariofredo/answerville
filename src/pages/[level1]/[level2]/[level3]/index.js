@@ -10,6 +10,7 @@ const ListPage = () => {
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1); 
 
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -33,10 +34,11 @@ const ListPage = () => {
           const found1 = fetchedData.find(key => key.slug === level1)
           const found2 = found1.level_2.find(key => key.slug === level2)
           const found3 = found2.level_3.find(key => key.slug === level3)
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}`;
+          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=20`;
           const response = await fetch(apiUrl);
           const result = await response.json();
-          setData(result.data);
+          // setData(result.data);
+          setData(prevData => [...prevData, ...result.data]);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -48,13 +50,27 @@ const ListPage = () => {
     if(fetchedData.length>0){
       fetchData();
     }
-  }, [fetchedData]);  // Run the effect whenever article changes
+  }, [fetchedData, page]);  // Run the effect whenever article changes
 
 //   if (!article) {
 //     // Render loading state or fallback content when article is not available
 //     return <p>Loading...</p>;
 //   }
+const handleScroll = () => {
+  // Check if the user has scrolled to the bottom of the page
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    // Increment the page number to fetch the next set of data
+    setPage(prevPage => prevPage + 1);
+  }
+};
 
+useEffect(() => {
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [page]);
   return (
     <section className='article_section'>
         {data.length > 0 ? (

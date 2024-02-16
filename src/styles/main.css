@@ -19,7 +19,7 @@ header {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
-header .search_box {
+.search_box {
   width: 500px;
   margin: 0 auto;
   display: block;
@@ -31,7 +31,7 @@ header .search_box {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-header .search_box input[type=text] {
+.search_box input[type=text] {
   width: 100%;
   height: 36px;
   display: block;
@@ -42,10 +42,10 @@ header .search_box input[type=text] {
   outline: 0;
   font-family: "ProximaNova";
 }
-header .search_box input[type=text]:focus {
+.search_box input[type=text]:focus {
   outline: 0;
 }
-header .search_box .search_btn {
+.search_box .search_btn {
   width: 36px;
   height: 36px;
   border: none;
@@ -56,6 +56,7 @@ header .search_box .search_btn {
   text-indent: 9999px;
   background: url("../../public/icon_search.png") no-repeat center/16px;
 }
+
 header .home_btn {
   width: 40px;
   height: 40px;
@@ -76,19 +77,30 @@ header .home_btn {
 section {
   padding-top: 160px;
 }
+section.home_section {
+  padding-top: 20px;
+}
 section.home_section .logo_box {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 section.home_section .logo_box img {
-  width: 180px;
+  width: 120px;
   display: block;
   margin: 0 auto;
 }
 section.home_section h3 {
   text-align: center;
   text-transform: uppercase;
-  font-size: 48px;
+  font-size: 40px;
   font-family: "ProximaNovaBold";
+  margin-bottom: 20px;
+}
+section.home_section .search_box {
+  left: auto;
+  top: auto;
+  position: relative;
+  transform: none;
+  overflow: hidden;
 }
 section.article_detail_section {
   text-align: center;
