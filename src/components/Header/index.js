@@ -33,10 +33,12 @@ const Header = () => {
           <header style={{display:'none'}}></header>
         ) : (
           <header>
-            <Link href="/" className='home_btn'>Home</Link>
-            <div className="search_box">
-                <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} onKeyPress={handleKeyPress}></input>
-                <button className="search_btn" onClick={handleSearch} disabled={!searchTerm}>Seach</button>
+            <div className='container'>
+              <Link href="/" className='home_btn'>Home</Link>
+              <div className="search_box">
+                  <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} onKeyPress={handleKeyPress}></input>
+                  <button className="search_btn" onClick={handleSearch} disabled={!searchTerm}>Seach</button>
+              </div>
             </div>
           </header>
         )}

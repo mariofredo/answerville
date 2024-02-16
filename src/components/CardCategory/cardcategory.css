@@ -112,4 +112,20 @@
   background: #000;
   color: #fff;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 959px) {
+  .card_category {
+    padding: 0 20px;
+  }
+  .card_category_box {
+    width: calc((100% - 40px) / 3);
+    margin-right: 20px;
+  }
+  .card_category_box:nth-child(3n) {
+    margin-right: 0;
+  }
+  .card_category_box:nth-child(5n) {
+    margin-right: 20px;
+  }
 }/*# sourceMappingURL=CardCategory.css.map */

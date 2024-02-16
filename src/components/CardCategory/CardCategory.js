@@ -16,7 +16,6 @@ const CardCategory = ({
   const router = useRouter();
   const [ctgFlag, setCtgFlag] = useState('');
   const handleClick = () => {
-    const cardImages = document.querySelectorAll('.card_category_image');
     if (showTags !== name) {
       setShowTags(name);
     } else {

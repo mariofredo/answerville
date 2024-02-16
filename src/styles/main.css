@@ -11,7 +11,6 @@ body {
 
 header {
   width: 100%;
-  height: 100px;
   position: fixed;
   top: 0;
   left: 0;
@@ -19,17 +18,19 @@ header {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
+header .container {
+  text-align: center;
+  padding: 20px 0;
+}
 .search_box {
   width: 500px;
-  margin: 0 auto;
-  display: block;
+  display: inline-block;
   background: #EFEFEF;
   border-radius: 20px;
   height: 36px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 .search_box input[type=text] {
   width: 100%;
@@ -60,12 +61,10 @@ header {
 header .home_btn {
   width: 40px;
   height: 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-300px, -50%);
-  background: url("../../public/icon_home.png") no-repeat center/30px;
+  vertical-align: middle;
+  background: url("../../public/logo_answerville.png") no-repeat center/30px;
   text-indent: -9999px;
+  display: inline-block;
 }
 
 .row_flex {
@@ -98,8 +97,10 @@ section.home_section h3 {
 section.home_section .search_box {
   left: auto;
   top: auto;
+  display: block;
   position: relative;
   transform: none;
+  margin: 0 auto;
   overflow: hidden;
 }
 section.article_detail_section {
@@ -144,4 +145,61 @@ section .container {
 }
 section.result_section {
   padding-top: 120px;
+}
+
+@media only screen and (max-width: 959px) {
+  section.home_section h3 {
+    font-size: 30px;
+  }
+  section.article_detail_section {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+  section.article_detail_section h1 {
+    font-size: 26px;
+    padding: 0 20px;
+  }
+  section.article_detail_section p {
+    font-size: 16px !important;
+    line-height: 24px !important;
+  }
+  section.article_detail_section ul,
+  section.article_detail_section ol {
+    padding-left: 20px;
+  }
+  section.article_detail_section ul li,
+  section.article_detail_section ol li {
+    font-size: 16px !important;
+    line-height: 24px;
+  }
+  section.article_detail_section .container div {
+    padding: 0 20px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .search_box {
+    width: calc(100% - 40px);
+  }
+  section.home_section h3 {
+    font-size: 24px;
+  }
+  section.home_section .search_box {
+    width: calc(100% - 40px);
+  }
+  section .card_category_box {
+    width: 100%;
+    margin-right: 0;
+  }
+  section .card_category_box:nth-child(3n) {
+    margin-right: 0;
+  }
+  section .card_category_box:nth-child(5n) {
+    margin-right: 0;
+  }
+  section.article_detail_section {
+    padding-top: 140px;
+  }
+  section.article_detail_section h1 {
+    font-size: 22px;
+  }
 }/*# sourceMappingURL=main.css.map */
