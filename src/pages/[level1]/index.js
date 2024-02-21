@@ -1,18 +1,18 @@
-'use client'
+'use client';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
-import { useRouter } from 'next/router';  // Correct import statement
-import { useEffect, useRef, useState } from 'react';
+import {useRouter} from 'next/router';
+import {useEffect, useRef, useState} from 'react';
 
 const ListPage = () => {
   const router = useRouter();
-  const { level1, level2, level3 } = router.query;
+  const {level1} = router.query;
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1); 
   const [isFirst, setIsFirst] = useState(false);
-  let isLoading = useRef();
+  const [page, setPage] = useState(1);
+  let isLoading = useRef()
 
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -32,16 +32,14 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (level3) {
           setLoading(true);
           isLoading.current = true
-          const found1 = fetchedData.find(key => key.slug === level1)
-          const found2 = found1.level_2.find(key => key.slug === level2)
-          const found3 = found2.level_3.find(key => key.slug === level3)
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=20`;
+          const found1 = fetchedData.find((key) => key.slug === level1);
+          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found1.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
-          // setData(result.data);
+          //setData(result.data);
+          //console.log(page);
           setTimeout(() => {
               setData(prevData =>{ 
               return (page === 1 ? result.data : [...prevData, ...result.data]) });
@@ -55,37 +53,35 @@ const ListPage = () => {
           if (result.data.length === 0) {
             window.removeEventListener('scroll', handleScroll);
           }
-        }
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error
       } finally {
       }
     };
-    if(fetchedData.length>0){
+    if (fetchedData.length > 0) {
       fetchData();
     }
-  }, [fetchedData, page]);  // Run the effect whenever article changes
+  }, [fetchedData, page]); // Run the effect whenever article changes
 
-//   if (!article) {
-//     // Render loading state or fallback content when article is not available
-//     return <p>Loading...</p>;
-//   }
-const handleScroll = () => {
-  // Check if the user has scrolled to the bottom of the page
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-    // Increment the page number to fetch the next set of data
-    setPage(prevPage => prevPage + 1);
-  }
-};
-
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
+  const handleScroll = () => {
+    // Check if the user has scrolled to the bottom of the page
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+      // Increment the page number to fetch the next set of data
+      if(!isLoading.current){
+        console.log('called')
+        setPage(prevPage => prevPage + 1);}
+    }
   };
-}, [page]);
+  
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [page]);
+
   return (
     <section className='article_section'>
       {/* Display loading message only if there's more data to load */}
@@ -137,5 +133,4 @@ const formatDate = (dateString) => {
 
   return `${day} ${month} ${year}'`;
 };
-
 export default ListPage;

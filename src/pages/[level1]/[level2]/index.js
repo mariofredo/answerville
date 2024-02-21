@@ -11,7 +11,8 @@ const ListPage = () => {
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  let isLoading = useRef()
+  const [isFirst, setIsFirst] = useState(false);
+  let isLoading = useRef();
 
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -32,7 +33,7 @@ const ListPage = () => {
     const fetchData = async () => {
       try {
         if (level2) {
-          // setLoading(true)
+          setLoading(true);
           isLoading.current = true
           const found1 = fetchedData.find((key) => key.slug === level1);
           const found2 = found1.level_2.find((key) => key.slug === level2);
@@ -40,13 +41,15 @@ const ListPage = () => {
           const response = await fetch(apiUrl);
           const result = await response.json();
           //setData(result.data);
-          //console.log(page);
           setTimeout(() => {
-              setData(prevData =>{ 
-              console.log([...prevData, ...result.data], 'tes')
-              return (page === 1 ? result.data : [...prevData, ...result.data]) });
-              isLoading.current = false
-          }, 1500);
+            setData(prevData =>{ 
+            return (page === 1 ? result.data : [...prevData, ...result.data]) });
+            isLoading.current = false;
+            setLoading(false);
+            if(!isFirst){
+              setIsFirst(true);
+            }
+        }, 1500);
 
           if (result.data.length === 0) {
             window.removeEventListener('scroll', handleScroll);
@@ -56,24 +59,25 @@ const ListPage = () => {
         console.error('Error fetching data:', error);
         // Handle error
       } finally {
-        setLoading(false);
       }
     };
     if (fetchedData.length > 0) {
-      console.log('fetch')
       fetchData();
     }
   }, [fetchedData, page]); // Run the effect whenever article changes
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
       // Increment the page number to fetch the next set of data
       if(!isLoading.current){
         console.log('called')
         setPage(prevPage => prevPage + 1);}
     }
   };
+
+  // useEffect(() => {
+  // }, [loading])
   
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -85,7 +89,8 @@ const ListPage = () => {
 
   return (
     <section className='article_section'>
-      {data.length > 0 && (
+      {/* Display loading message only if there's more data to load */}
+      {data.length > 0 ? (
         <div className='article_list'>
           <MasonryLayout>
             {data.map((article) => (
@@ -101,11 +106,19 @@ const ListPage = () => {
               />
             ))}
           </MasonryLayout>
-      </div>
+        </div>
+      ) : (
+        <>
+          {(isFirst && data.length == 0) && (
+            <div className='article_list_empty'>
+              <h3>More Article will be coming!</h3>
+            </div>
+          )}
+        </>
       )}
-      {/* Display loading message only if there's more data to load */}
-      {loading && data.length > 0 && (
-        <div className='article_list_loading'>
+
+      {loading && (
+        <div className='article_list_empty loading'>
           <h3>Loading more content...</h3>
         </div>
       )}
