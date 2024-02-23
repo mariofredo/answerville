@@ -1,6 +1,7 @@
 'use client'
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
+import AdSense from '@/components/AdSense/AdSense';
 import { useRouter } from 'next/router';  // Correct import statement
 import { useEffect, useState } from 'react';
 
@@ -35,6 +36,7 @@ const ListPage = () => {
 //   }
 
   return (
+    <>
     <section className='article_section'>
       {data.length > 0 ? (
       <div className='article_list'>
@@ -50,6 +52,8 @@ const ListPage = () => {
         </div>
       )}
     </section>
+    <AdSense />
+    </>
   );
 };
 const formatDate = (dateString) => {

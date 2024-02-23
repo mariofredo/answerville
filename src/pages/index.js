@@ -2,7 +2,9 @@
 import CardCategory from "@/components/CardCategory/CardCategory";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import AdSense from "@/components/AdSense/AdSense";
 import "../styles/main.css"
+
 
 const Home = () => {
   const router = useRouter();
@@ -55,6 +57,8 @@ const Home = () => {
         ))}
       </div>
     </section>
+
+    <AdSense />
     </>
   );
 }
