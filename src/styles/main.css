@@ -147,6 +147,15 @@ section.result_section {
   padding-top: 120px;
 }
 
+.ads_box {
+  width: 100%;
+  height: 100px;
+  background: #ccc;
+  line-height: 100px;
+  text-align: center;
+  color: #fff;
+}
+
 @media only screen and (max-width: 959px) {
   section.home_section h3 {
     font-size: 30px;

@@ -88,7 +88,7 @@ const ArticleDetail = () => {
               />
             ))}
 
-        {/* Add other details you want to display */}
+        <div className='ads_box'>ADS</div>
       </div>
     </section>
     <AdSense />
