@@ -154,6 +154,7 @@ section.result_section {
   line-height: 100px;
   text-align: center;
   color: #fff;
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 959px) {
