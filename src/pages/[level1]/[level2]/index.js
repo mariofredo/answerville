@@ -1,6 +1,7 @@
 'use client';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
+import AdSense from '@/components/AdSense/AdSense';
 import {useRouter} from 'next/router';
 import {useEffect, useRef, useState} from 'react';
 
@@ -88,6 +89,7 @@ const ListPage = () => {
   }, [page]);
 
   return (
+    <>
     <section className='article_section'>
       {/* Display loading message only if there's more data to load */}
       {data.length > 0 ? (
@@ -123,6 +125,8 @@ const ListPage = () => {
         </div>
       )}
     </section>
+    <AdSense />
+    </>
   );
 };
 const formatDate = (dateString) => {

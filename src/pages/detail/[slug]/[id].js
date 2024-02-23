@@ -1,5 +1,6 @@
 // pages/article/[slug].js
 'use client';
+import AdSense from '@/components/AdSense/AdSense';
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import '../../../styles/main.css';
@@ -68,6 +69,7 @@ const ArticleDetail = () => {
       : null;
 
   return (
+    <>
     <section className='article_detail_section'>
       <div className='container'>
         <h1>{article.title}</h1>
@@ -89,6 +91,8 @@ const ArticleDetail = () => {
         {/* Add other details you want to display */}
       </div>
     </section>
+    <AdSense />
+    </>
   );
 };
 
