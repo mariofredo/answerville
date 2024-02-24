@@ -12,7 +12,7 @@ const ListPage = () => {
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   let isLoading = useRef()
 
   useEffect(() => {
