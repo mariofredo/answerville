@@ -39,7 +39,7 @@ const ListPage = () => {
           const found1 = fetchedData.find(key => key.slug === level1)
           const found2 = found1.level_2.find(key => key.slug === level2)
           const found3 = found2.level_3.find(key => key.slug === level3)
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=20`;
+          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
           // setData(result.data);
