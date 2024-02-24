@@ -11,7 +11,7 @@ const ListPage = () => {
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [isFirst, setIsFirst] = useState(false);
   let isLoading = useRef();
 
@@ -43,8 +43,7 @@ const ListPage = () => {
           const result = await response.json();
           //setData(result.data);
           setTimeout(() => {
-            setData(prevData =>{ 
-            return (page === 1 ? result.data : [...prevData, ...result.data]) });
+            setData(prevData => (page === 1 ? result.data : [...prevData, ...result.data]));
             isLoading.current = false;
             setLoading(false);
             if(!isFirst){
@@ -69,7 +68,7 @@ const ListPage = () => {
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
-    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    if(!loading && window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
       // Increment the page number to fetch the next set of data
       if(!isLoading.current){
         console.log('called')

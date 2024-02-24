@@ -11,7 +11,7 @@ const ListPage = () => {
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(0); 
   const [isFirst, setIsFirst] = useState(false);
   let isLoading = useRef();
 
