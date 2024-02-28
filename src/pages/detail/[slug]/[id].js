@@ -87,8 +87,6 @@ const ArticleDetail = () => {
                 dangerouslySetInnerHTML={{__html: section.text}}
               />
             ))}
-
-        <div className='ads_box'>ADS</div>
       </div>
     </section>
     <AdSense />
