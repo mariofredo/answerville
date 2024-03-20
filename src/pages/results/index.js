@@ -19,6 +19,7 @@ const ListPage = () => {
           const response = await fetch(apiUrl);
           const result = await response.json();
           setData(result.data);
+          console.log(result.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error
@@ -42,7 +43,7 @@ const ListPage = () => {
       <div className='article_list'>
         <MasonryLayout>
           {data.map((article) => (
-            <ArticleList key={article.slug} slug={article.slug} thumbnail={article.thumbnail} title={article.title} created_at={formatDate(article.created_at)} summary={article.summary}  />
+            <ArticleList key={article.slug} article={article} thumbnail={article.thumbnail} title={article.title} created_at={formatDate(article.created_at)} summary={article.summary}  />
           ))}
         </MasonryLayout>
       </div>
