@@ -84,6 +84,12 @@ header{
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
 }
+.error{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-family: 'ProximaNovaBold';
+}
 section{
     padding-top: 160px;
     &.home_section{

@@ -25,6 +25,8 @@ const ArticleDetail = () => {
           });
 
           const result = await response.json();
+          
+          if(result.code === 404) return router.push('/404');
           setArticle(result.data);
         }
       } catch (error) {
