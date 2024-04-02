@@ -3,11 +3,13 @@
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import {GoogleTagManager} from '@next/third-parties/google';
+import {useTitle} from '@/context';
 import AdSense from '@/components/AdSense/AdSense';
 import '../../../styles/main.css';
 
 const ArticleDetail = () => {
   const router = useRouter();
+  const {setCurrentTitle} = useTitle();
   const {slug, id} = router.query;
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,6 +31,7 @@ const ArticleDetail = () => {
 
           if (result.code === 404) return router.push('/404');
           setArticle(result.data);
+          setCurrentTitle(result.data.title);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
