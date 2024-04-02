@@ -1,8 +1,9 @@
 "use client"
-import CardCategory from "@/components/CardCategory/CardCategory";
 import { useEffect, useState } from "react";
+import {GoogleTagManager} from '@next/third-parties/google';
 import { useRouter } from "next/router";
 import AdSense from "@/components/AdSense/AdSense";
+import CardCategory from "@/components/CardCategory/CardCategory";
 import "../styles/main.css"
 
 
@@ -44,21 +45,44 @@ const Home = () => {
     };
   return (
     <>
-    <section className="home_section">
-      <div className="logo_box"><img src="/logo_answerville.png" /></div>
-      <h3>I Want to know all the answers to...</h3>
-      <div className="search_box">
-          <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearchChange} onKeyPress={handleKeyPress}></input>
-          <button className="search_btn" onClick={handleSearch} disabled={!searchTerm}>Seach</button>
-      </div>
-      <div className="row_flex card_category">
-        {fetchedData.map((category) => (
-          <CardCategory category={category} key={category.id} name={category.name} image={category.image} level_2={category.level_2} setShowTags={setShowTags} showTags={showTags} />
-        ))}
-      </div>
-    </section>
+      <section className='home_section'>
+        <div className='logo_box'>
+          <img src='/logo_answerville.png' />
+        </div>
+        <h3>I Want to know all the answers to...</h3>
+        <div className='search_box'>
+          <input
+            type='text'
+            placeholder='Search...'
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onKeyPress={handleKeyPress}
+          ></input>
+          <button
+            className='search_btn'
+            onClick={handleSearch}
+            disabled={!searchTerm}
+          >
+            Seach
+          </button>
+        </div>
+        <div className='row_flex card_category'>
+          {fetchedData.map((category) => (
+            <CardCategory
+              category={category}
+              key={category.id}
+              name={category.name}
+              image={category.image}
+              level_2={category.level_2}
+              setShowTags={setShowTags}
+              showTags={showTags}
+            />
+          ))}
+        </div>
+      </section>
 
-    <AdSense />
+      <AdSense />
+      <GoogleTagManager gtmId='G-JNZC27WEH5' />
     </>
   );
 }
