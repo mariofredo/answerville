@@ -2,12 +2,14 @@
 import {useRouter} from 'next/router';
 import {GoogleTagManager} from '@next/third-parties/google';
 import {useEffect, useRef, useState} from 'react';
+import {useTitle} from '@/context';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import AdSense from '@/components/AdSense/AdSense';
 
 const ListPage = () => {
   const router = useRouter();
+  const {setCurrentTitle} = useTitle();
   const {level1, level2} = router.query;
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
@@ -45,6 +47,7 @@ const ListPage = () => {
           //setData(result.data);
           setTimeout(() => {
             setData(prevData => (page === 1 ? result.data : [...prevData, ...result.data]));
+            setCurrentTitle(`${result.data.slug}/${result.data.id}`);
             isLoading.current = false;
             setLoading(false);
             if(!isFirst){

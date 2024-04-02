@@ -2,19 +2,21 @@
 import {useRouter} from 'next/router';
 import {GoogleTagManager} from '@next/third-parties/google';
 import {useEffect, useRef, useState} from 'react';
+import {useTitle} from '@/context';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import AdSense from '@/components/AdSense/AdSense';
 
 const ListPage = () => {
   const router = useRouter();
+  const {setCurrentTitle} = useTitle();
   const {level1} = router.query;
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isFirst, setIsFirst] = useState(false);
   const [page, setPage] = useState(0);
-  let isLoading = useRef()
+  let isLoading = useRef();
 
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -34,27 +36,29 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          setLoading(true);
-          isLoading.current = true
-          const found1 = fetchedData.find((key) => key.slug === level1);
-          const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found1.id}&page=${page}&limit=5`;
-          const response = await fetch(apiUrl);
-          const result = await response.json();
-          //setData(result.data);
-          //console.log(page);
-          setTimeout(() => {
-              setData(prevData =>{ 
-              return (page === 1 ? result.data : [...prevData, ...result.data]) });
-              isLoading.current = false;
-              setLoading(false);
-              if(!isFirst){
-                setIsFirst(true);
-              }
-          }, 1500);
-
-          if (result.data.length === 0) {
-            window.removeEventListener('scroll', handleScroll);
+        setLoading(true);
+        isLoading.current = true;
+        const found1 = fetchedData.find((key) => key.slug === level1);
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found1.id}&page=${page}&limit=5`;
+        const response = await fetch(apiUrl);
+        const result = await response.json();
+        //setData(result.data);
+        //console.log(page);
+        setTimeout(() => {
+          setData((prevData) => {
+            return page === 1 ? result.data : [...prevData, ...result.data];
+          });
+          setCurrentTitle(`${result.data.slug}/${result.data.id}`);
+          isLoading.current = false;
+          setLoading(false);
+          if (!isFirst) {
+            setIsFirst(true);
           }
+        }, 1500);
+
+        if (result.data.length === 0) {
+          window.removeEventListener('scroll', handleScroll);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error
@@ -68,17 +72,21 @@ const ListPage = () => {
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 200
+    ) {
       // Increment the page number to fetch the next set of data
-      if(!isLoading.current){
-        console.log('called')
-        setPage(prevPage => prevPage + 1);}
+      if (!isLoading.current) {
+        console.log('called');
+        setPage((prevPage) => prevPage + 1);
+      }
     }
   };
-  
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-  
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -128,8 +136,18 @@ const ListPage = () => {
 };
 const formatDate = (dateString) => {
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   const date = new Date(dateString);
