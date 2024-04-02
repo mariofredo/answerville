@@ -72,26 +72,27 @@ const ArticleDetail = () => {
 
   return (
     <>
-    <section className='article_detail_section'>
-      <div className='container'>
-        <h1>{article.title}</h1>
+      <section className='article_detail_section'>
+        <div className='container'>
+          <h1>{article.title}</h1>
 
-        {/* Render image section */}
-        {imageSection && <img src={fullImageUrl} alt={`Image`} />}
+          {/* Render image section */}
+          {imageSection && <img src={fullImageUrl} alt={`Image`} />}
 
-        {/* Render text sections */}
-        {article.content &&
-          Object.values(article.content)
-            .filter((section) => section.type === 'text')
-            .map((section, index) => (
-              <div
-                key={index}
-                dangerouslySetInnerHTML={{__html: section.text}}
-              />
-            ))}
-      </div>
-    </section>
-    <AdSense />
+          {/* Render text sections */}
+          {article.content &&
+            Object.values(article.content)
+              .filter((section) => section.type === 'text')
+              .map((section, index) => (
+                <div
+                  key={index}
+                  dangerouslySetInnerHTML={{__html: section.text}}
+                />
+              ))}
+        </div>
+      </section>
+      <AdSense />
+      <GoogleTagManager gtmId='G-JNZC27WEH5' />
     </>
   );
 };

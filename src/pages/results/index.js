@@ -38,22 +38,30 @@ const ListPage = () => {
 
   return (
     <>
-    <section className='article_section'>
-      {data.length > 0 ? (
-      <div className='article_list'>
-        <MasonryLayout>
-          {data.map((article) => (
-            <ArticleList key={article.slug} article={article} thumbnail={article.thumbnail} title={article.title} created_at={formatDate(article.created_at)} summary={article.summary}  />
-          ))}
-        </MasonryLayout>
-      </div>
-      ) : (
-        <div className="article_list_empty">
-          <h3>We are sorry that we can’t find what you are looking for.</h3>
-        </div>
-      )}
-    </section>
-    <AdSense />
+      <section className='article_section'>
+        {data.length > 0 ? (
+          <div className='article_list'>
+            <MasonryLayout>
+              {data.map((article) => (
+                <ArticleList
+                  key={article.slug}
+                  article={article}
+                  thumbnail={article.thumbnail}
+                  title={article.title}
+                  created_at={formatDate(article.created_at)}
+                  summary={article.summary}
+                />
+              ))}
+            </MasonryLayout>
+          </div>
+        ) : (
+          <div className='article_list_empty'>
+            <h3>We are sorry that we can’t find what you are looking for.</h3>
+          </div>
+        )}
+      </section>
+      <AdSense />
+      <GoogleTagManager gtmId='G-JNZC27WEH5' />
     </>
   );
 };

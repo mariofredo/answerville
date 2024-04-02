@@ -89,42 +89,43 @@ useEffect(() => {
 }, [page]);
   return (
     <>
-    <section className='article_section'>
-      {/* Display loading message only if there's more data to load */}
-      {data.length > 0 ? (
-        <div className='article_list'>
-          <MasonryLayout>
-            {data.map((article) => (
-              <ArticleList
-                key={article.id}
-                article={article}
-                id={article.id}
-                slug={article.slug}
-                thumbnail={article.thumbnail}
-                title={article.title}
-                created_at={formatDate(article.created_at)}
-                summary={article.summary}
-              />
-            ))}
-          </MasonryLayout>
-        </div>
-      ) : (
-        <>
-          {(isFirst && data.length == 0) && (
-            <div className='article_list_empty'>
-              <h3>More Article will be coming!</h3>
-            </div>
-          )}
-        </>
-      )}
+      <section className='article_section'>
+        {/* Display loading message only if there's more data to load */}
+        {data.length > 0 ? (
+          <div className='article_list'>
+            <MasonryLayout>
+              {data.map((article) => (
+                <ArticleList
+                  key={article.id}
+                  article={article}
+                  id={article.id}
+                  slug={article.slug}
+                  thumbnail={article.thumbnail}
+                  title={article.title}
+                  created_at={formatDate(article.created_at)}
+                  summary={article.summary}
+                />
+              ))}
+            </MasonryLayout>
+          </div>
+        ) : (
+          <>
+            {isFirst && data.length == 0 && (
+              <div className='article_list_empty'>
+                <h3>More Article will be coming!</h3>
+              </div>
+            )}
+          </>
+        )}
 
-      {loading && (
-        <div className='article_list_empty loading'>
-          <h3>Loading more content...</h3>
-        </div>
-      )}
-    </section>
-    <AdSense />
+        {loading && (
+          <div className='article_list_empty loading'>
+            <h3>Loading more content...</h3>
+          </div>
+        )}
+      </section>
+      <AdSense />
+      <GoogleTagManager gtmId='G-JNZC27WEH5' />
     </>
   );
 };
