@@ -1,11 +1,10 @@
-"use client"
-import { useEffect, useState } from "react";
+'use client';
+import {useEffect, useState} from 'react';
 import {GoogleTagManager} from '@next/third-parties/google';
-import { useRouter } from "next/router";
-import AdSense from "@/components/AdSense/AdSense";
-import CardCategory from "@/components/CardCategory/CardCategory";
-import "../styles/main.css"
-
+import {useRouter} from 'next/router';
+import AdSense from '@/components/AdSense/AdSense';
+import CardCategory from '@/components/CardCategory/CardCategory';
+import '../styles/main.css';
 
 const Home = () => {
   const router = useRouter();
@@ -28,21 +27,21 @@ const Home = () => {
 
     fetchData(); // Panggil fungsi fetchData pada saat komponen di-mount
   }, []); // Gunakan array dependencies kosong agar useEffect hanya dijalankan sekali pada saat mount
-  
+
   const handleSearchChange = (e) => {
-      setSearchTerm(e.target.value);
-    };
+    setSearchTerm(e.target.value);
+  };
 
-    const handleSearch = () => {
-      // Navigate to the results page with the search term as a query parameter
-      router.push(`/results?search=${searchTerm}`);
-    };
+  const handleSearch = () => {
+    // Navigate to the results page with the search term as a query parameter
+    router.push(`/results?search=${searchTerm}`);
+  };
 
-    const handleKeyPress = (e) => {
-      if (e.key === 'Enter' && e.target.value.length > 0) {
-        handleSearch();
-      }
-    };
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && e.target.value.length > 0) {
+      handleSearch();
+    }
+  };
   return (
     <>
       <section className='home_section'>
@@ -85,6 +84,6 @@ const Home = () => {
       <GoogleTagManager gtmId='G-JNZC27WEH5' />
     </>
   );
-}
+};
 
 export default Home;

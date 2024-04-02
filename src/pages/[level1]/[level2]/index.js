@@ -1,9 +1,10 @@
 'use client';
+import {useRouter} from 'next/router';
+import {GoogleTagManager} from '@next/third-parties/google';
+import {useEffect, useRef, useState} from 'react';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import AdSense from '@/components/AdSense/AdSense';
-import {useRouter} from 'next/router';
-import {useEffect, useRef, useState} from 'react';
 
 const ListPage = () => {
   const router = useRouter();

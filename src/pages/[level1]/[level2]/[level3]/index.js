@@ -1,17 +1,18 @@
-'use client'
+'use client';
+import {useRouter} from 'next/router'; // Correct import statement
+import {GoogleTagManager} from '@next/third-parties/google';
+import {useEffect, useRef, useState} from 'react';
 import ArticleList from '@/components/ArticleList/ArticleList';
 import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import AdSense from '@/components/AdSense/AdSense';
-import { useRouter } from 'next/router';  // Correct import statement
-import { useEffect, useRef, useState } from 'react';
 
 const ListPage = () => {
   const router = useRouter();
-  const { level1, level2, level3 } = router.query;
+  const {level1, level2, level3} = router.query;
   const [data, setData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0); 
+  const [page, setPage] = useState(0);
   const [isFirst, setIsFirst] = useState(false);
   let isLoading = useRef();
 
@@ -35,22 +36,23 @@ const ListPage = () => {
       try {
         if (level3) {
           setLoading(true);
-          isLoading.current = true
-          const found1 = fetchedData.find(key => key.slug === level1)
-          const found2 = found1.level_2.find(key => key.slug === level2)
-          const found3 = found2.level_3.find(key => key.slug === level3)
+          isLoading.current = true;
+          const found1 = fetchedData.find((key) => key.slug === level1);
+          const found2 = found1.level_2.find((key) => key.slug === level2);
+          const found3 = found2.level_3.find((key) => key.slug === level3);
           const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
           // setData(result.data);
           setTimeout(() => {
-              setData(prevData =>{ 
-              return (page === 1 ? result.data : [...prevData, ...result.data]) });
-              isLoading.current = false;
-              setLoading(false);
-              if(!isFirst){
-                setIsFirst(true);
-              }
+            setData((prevData) => {
+              return page === 1 ? result.data : [...prevData, ...result.data];
+            });
+            isLoading.current = false;
+            setLoading(false);
+            if (!isFirst) {
+              setIsFirst(true);
+            }
           }, 1500);
 
           if (result.data.length === 0) {
@@ -63,30 +65,33 @@ const ListPage = () => {
       } finally {
       }
     };
-    if(fetchedData.length>0){
+    if (fetchedData.length > 0) {
       fetchData();
     }
-  }, [fetchedData, page]);  // Run the effect whenever article changes
+  }, [fetchedData, page]); // Run the effect whenever article changes
 
-//   if (!article) {
-//     // Render loading state or fallback content when article is not available
-//     return <p>Loading...</p>;
-//   }
-const handleScroll = () => {
-  // Check if the user has scrolled to the bottom of the page
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
-    // Increment the page number to fetch the next set of data
-    setPage(prevPage => prevPage + 1);
-  }
-};
-
-useEffect(() => {
-  window.addEventListener('scroll', handleScroll);
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
+  //   if (!article) {
+  //     // Render loading state or fallback content when article is not available
+  //     return <p>Loading...</p>;
+  //   }
+  const handleScroll = () => {
+    // Check if the user has scrolled to the bottom of the page
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 200
+    ) {
+      // Increment the page number to fetch the next set of data
+      setPage((prevPage) => prevPage + 1);
+    }
   };
-}, [page]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [page]);
   return (
     <>
       <section className='article_section'>
@@ -131,8 +136,18 @@ useEffect(() => {
 };
 const formatDate = (dateString) => {
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   const date = new Date(dateString);
