@@ -1,7 +1,5 @@
 // _app.js atau _app.jsx
-
 import React from 'react';
-import {GoogleTagManager} from '@next/third-parties/google';
 import Head from '@/components/Head/Head.js';
 import Header from '@/components/Header';
 import '../../public/fonts/stylesheet.css';
@@ -13,7 +11,18 @@ function MyApp({Component, pageProps}) {
       <Head />
       <Header />
       <Component {...pageProps} />
-      <GoogleTagManager gtmId='G-JNZC27WEH5' />
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtm.js?id=G-JNZC27WEH5`}
+      />
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=G-JNZC27WEH5`}
+          height='0'
+          width='0'
+          style={{display: 'none', visibility: 'hidden'}}
+        />
+      </noscript>
     </>
   );
 }
