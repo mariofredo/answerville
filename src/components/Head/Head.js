@@ -1,26 +1,21 @@
 'use client';
 import Head from 'next/head';
-// import {usePathname} from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import Script from 'next/script';
 import {useEffect, useState} from 'react';
 import {useTitle} from '@/context';
 
 function MyPage() {
-  // const path = usePathname();
+  const path = usePathname();
   const [headName, setHeadName] = useState('Home');
-  const {currentTitle, setCurrentTitle} = useTitle();
+  const {currentTitle} = useTitle();
   useEffect(() => {
-    // if (path == '/') {
-    //   setHeadName('home');
-    // } else if (path) {
-    //   let temp = path.split('/');
-    //   let newPath = temp.splice(1, temp.length).join('-');
-    //   setHeadName(newPath);
-    // }
-    console.log(currentTitle);
-    setHeadName(currentTitle || 'Home');
-    console.log(headName);
-  }, [currentTitle, setCurrentTitle]);
+    if (path === '/') {
+      setHeadName('Home');
+    } else {
+      setHeadName(currentTitle);
+    }
+  }, [path, currentTitle]);
   return (
     <Head>
       <meta

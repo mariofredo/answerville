@@ -18,6 +18,10 @@ const ListPage = () => {
   const [isFirst, setIsFirst] = useState(false);
   let isLoading = useRef();
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
@@ -34,27 +38,29 @@ const ListPage = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentTitle(
+      `${capitalizeFirstLetter(level1)} | ${capitalizeFirstLetter(level2)}`
+    );
     const fetchData = async () => {
       try {
         if (level2) {
           setLoading(true);
-          isLoading.current = true
+          isLoading.current = true;
           const found1 = fetchedData.find((key) => key.slug === level1);
           const found2 = found1.level_2.find((key) => key.slug === level2);
           const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found2.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
-          //setData(result.data);
           setTimeout(() => {
-            setData(prevData => (page === 1 ? result.data : [...prevData, ...result.data]));
-            console.log(result.data.slug, result.data.id);
-            setCurrentTitle(`${result.data.slug}/${result.data.id}`);
+            setData((prevData) =>
+              page === 1 ? result.data : [...prevData, ...result.data]
+            );
             isLoading.current = false;
             setLoading(false);
-            if(!isFirst){
+            if (!isFirst) {
               setIsFirst(true);
             }
-        }, 1500);
+          }, 1500);
 
           if (result.data.length === 0) {
             window.removeEventListener('scroll', handleScroll);
@@ -73,20 +79,24 @@ const ListPage = () => {
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
-    if(!loading && window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+    if (
+      !loading &&
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 200
+    ) {
       // Increment the page number to fetch the next set of data
-      if(!isLoading.current){
-        console.log('called')
-        setPage(prevPage => prevPage + 1);}
+      if (!isLoading.current) {
+        console.log('called');
+        setPage((prevPage) => prevPage + 1);
+      }
     }
   };
 
   // useEffect(() => {
   // }, [loading])
-  
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-  
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -136,8 +146,18 @@ const ListPage = () => {
 };
 const formatDate = (dateString) => {
   const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   const date = new Date(dateString);

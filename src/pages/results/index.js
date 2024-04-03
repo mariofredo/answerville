@@ -19,7 +19,6 @@ const ListPage = () => {
         const response = await fetch(apiUrl);
         const result = await response.json();
         setData(result.data);
-        console.log(result.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Handle error

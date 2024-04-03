@@ -2,12 +2,13 @@
 import React from 'react';
 import Head from '@/components/Head/Head.js';
 import Header from '@/components/Header';
+import {TitleContextProvider} from '@/context';
 import '../../public/fonts/stylesheet.css';
 import '../styles/main.css';
 
 function MyApp({Component, pageProps}) {
   return (
-    <>
+    <TitleContextProvider>
       <Head />
       <Header />
       <Component {...pageProps} />
@@ -23,7 +24,7 @@ function MyApp({Component, pageProps}) {
           style={{display: 'none', visibility: 'hidden'}}
         />
       </noscript>
-    </>
+    </TitleContextProvider>
   );
 }
 
