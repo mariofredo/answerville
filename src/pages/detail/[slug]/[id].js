@@ -18,7 +18,6 @@ const ArticleDetail = () => {
       try {
         if (slug) {
           const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article/details`;
-          console.log(apiUrl);
           const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -26,9 +25,7 @@ const ArticleDetail = () => {
             },
             body: JSON.stringify({slug}),
           });
-
           const result = await response.json();
-
           if (result.code === 404) return router.push('/404');
           setArticle(result.data);
           setCurrentTitle(result.data.title);

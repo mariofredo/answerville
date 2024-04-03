@@ -18,6 +18,10 @@ const ListPage = () => {
   const [page, setPage] = useState(0);
   let isLoading = useRef();
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
@@ -34,6 +38,7 @@ const ListPage = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentTitle(`${capitalizeFirstLetter(level1)}`);
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -42,20 +47,16 @@ const ListPage = () => {
         const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found1.id}&page=${page}&limit=5`;
         const response = await fetch(apiUrl);
         const result = await response.json();
-        //setData(result.data);
-        //console.log(page);
         setTimeout(() => {
           setData((prevData) => {
             return page === 1 ? result.data : [...prevData, ...result.data];
           });
-          setCurrentTitle(`${result.data.slug}/${result.data.id}`);
           isLoading.current = false;
           setLoading(false);
           if (!isFirst) {
             setIsFirst(true);
           }
         }, 1500);
-
         if (result.data.length === 0) {
           window.removeEventListener('scroll', handleScroll);
         }
@@ -78,7 +79,6 @@ const ListPage = () => {
     ) {
       // Increment the page number to fetch the next set of data
       if (!isLoading.current) {
-        console.log('called');
         setPage((prevPage) => prevPage + 1);
       }
     }

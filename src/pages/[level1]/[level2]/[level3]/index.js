@@ -18,6 +18,10 @@ const ListPage = () => {
   const [isFirst, setIsFirst] = useState(false);
   let isLoading = useRef();
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
@@ -34,6 +38,11 @@ const ListPage = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentTitle(
+      `${capitalizeFirstLetter(level1)} | ${capitalizeFirstLetter(
+        level2
+      )} | ${capitalizeFirstLetter(level3)}`
+    );
     const fetchData = async () => {
       try {
         if (level3) {
@@ -45,12 +54,10 @@ const ListPage = () => {
           const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/article?category=${found3.id}&page=${page}&limit=5`;
           const response = await fetch(apiUrl);
           const result = await response.json();
-          // setData(result.data);
           setTimeout(() => {
             setData((prevData) => {
               return page === 1 ? result.data : [...prevData, ...result.data];
             });
-            setCurrentTitle(`${result.data.slug}/${result.data.id}`);
             isLoading.current = false;
             setLoading(false);
             if (!isFirst) {
