@@ -31,6 +31,7 @@ const ArticleDetail = () => {
 
           if (result.code === 404) return router.push('/404');
           setArticle(result.data);
+          console.log(result.data.title);
           setCurrentTitle(result.data.title);
         }
       } catch (error) {

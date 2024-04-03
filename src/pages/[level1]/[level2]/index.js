@@ -47,6 +47,7 @@ const ListPage = () => {
           //setData(result.data);
           setTimeout(() => {
             setData(prevData => (page === 1 ? result.data : [...prevData, ...result.data]));
+            console.log(result.data.slug, result.data.id);
             setCurrentTitle(`${result.data.slug}/${result.data.id}`);
             isLoading.current = false;
             setLoading(false);

@@ -8,7 +8,7 @@ import {useTitle} from '@/context';
 function MyPage() {
   // const path = usePathname();
   const [headName, setHeadName] = useState('Home');
-  const {currentTitle} = useTitle();
+  const {currentTitle, setCurrentTitle} = useTitle();
   useEffect(() => {
     // if (path == '/') {
     //   setHeadName('home');
@@ -20,7 +20,7 @@ function MyPage() {
     console.log(currentTitle);
     setHeadName(currentTitle || 'Home');
     console.log(headName);
-  }, [currentTitle]);
+  }, [currentTitle, setCurrentTitle]);
   return (
     <Head>
       <meta
