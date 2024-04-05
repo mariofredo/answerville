@@ -38,11 +38,14 @@ const ListPage = () => {
   }, []);
 
   useEffect(() => {
-    setCurrentTitle(
-      `${capitalizeFirstLetter(level1)} | ${capitalizeFirstLetter(
-        level2
-      )} | ${capitalizeFirstLetter(level3)}`
-    );
+    level1 &&
+      level2 &&
+      level3 &&
+      setCurrentTitle(
+        `${capitalizeFirstLetter(level1)} | ${capitalizeFirstLetter(
+          level2
+        )} | ${capitalizeFirstLetter(level3)}`
+      );
     const fetchData = async () => {
       try {
         if (level3) {
