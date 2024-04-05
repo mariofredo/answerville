@@ -38,7 +38,7 @@ const ListPage = () => {
   }, []);
 
   useEffect(() => {
-    setCurrentTitle(`${capitalizeFirstLetter(level1)}`);
+    level1 && setCurrentTitle(`${capitalizeFirstLetter(level1)}`);
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -69,7 +69,7 @@ const ListPage = () => {
     if (fetchedData.length > 0) {
       fetchData();
     }
-  }, [fetchedData, page]); // Run the effect whenever article changes
+  }, [fetchedData, page, level1]); // Run the effect whenever article changes
 
   const handleScroll = () => {
     // Check if the user has scrolled to the bottom of the page
