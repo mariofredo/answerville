@@ -15,13 +15,13 @@ const CardCategory = ({
 }) => {
   const router = useRouter();
   const [ctgFlag, setCtgFlag] = useState('');
-  const handleClick = () => {
-    if (showTags !== name) {
-      setShowTags(name);
-    } else {
-      setShowTags('');
-    }
-  };
+  // const handleClick = () => {
+  //   if (showTags !== name) {
+  //     setShowTags(name);
+  //   } else {
+  //     setShowTags('');
+  //   }
+  // };
   const renderLevel3 = (level2slug, level3) => {
     return (
       <ul>
@@ -46,7 +46,7 @@ const CardCategory = ({
         className={`card_category_image ${showTags === name ? 'active' : ' '}`}
       >
         <img src={image} />
-        <div className='card_category_name' onClick={handleClick}>
+        <div className='card_category_name' onClick={() => router.push(`/${category.slug}`)}>
           <span>{name}</span>
         </div>
       </div>
