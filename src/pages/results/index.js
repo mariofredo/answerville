@@ -2,9 +2,8 @@
 import {useRouter} from 'next/router'; // Correct import statement
 import {GoogleTagManager} from '@next/third-parties/google';
 import {useEffect, useState} from 'react';
-import ArticleList from '@/components/ArticleList/ArticleList';
-import MasonryLayout from '@/components/MasonryLayout/MasonryLayout';
 import AdSense from '@/components/AdSense/AdSense';
+import SearchList from '@/components/SearchList/SearchList';
 
 const ListPage = () => {
   const router = useRouter();
@@ -38,10 +37,9 @@ const ListPage = () => {
     <>
       <section className='article_section'>
         {data.length > 0 ? (
-          <div className='article_list'>
-            <MasonryLayout>
+          <div className='search_list'>
               {data.map((article) => (
-                <ArticleList
+                <SearchList
                   key={article.slug}
                   article={article}
                   thumbnail={article.thumbnail}
@@ -50,7 +48,6 @@ const ListPage = () => {
                   summary={article.summary}
                 />
               ))}
-            </MasonryLayout>
           </div>
         ) : (
           <div className='article_list_empty'>
