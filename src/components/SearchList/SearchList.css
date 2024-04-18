@@ -49,7 +49,7 @@
   font-size: 16px;
 }
 
-.article_list_empty {
+.search_list_empty {
   max-width: 1080px;
   margin: 0 auto;
   width: 100%;
@@ -57,10 +57,10 @@
   padding-top: 40px;
   text-align: center;
 }
-.article_list_empty h3 {
+.search_list_empty h3 {
   font-size: 36px;
 }
-.article_list_empty.loading {
+.search_list_empty.loading {
   background: url("../../../public/loader.gif") no-repeat top 40px center/32px;
   padding: 80px 0 20px;
 }/*# sourceMappingURL=SearchList.css.map */
