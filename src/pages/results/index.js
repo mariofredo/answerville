@@ -50,7 +50,7 @@ const ListPage = () => {
               ))}
           </div>
         ) : (
-          <div className='article_list_empty'>
+          <div className='search_list_empty'>
             <h3>We are sorry that we can’t find what you are looking for.</h3>
           </div>
         )}
