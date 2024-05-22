@@ -176,6 +176,14 @@ section{
     color:#fff;
     margin-bottom: 20px;
 }
+.pbgoogle{
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: url('../../public/powered-by-google.png') no-repeat center / contain;
+}
 @media only screen and (max-width:959px){
     section{
         &.home_section{

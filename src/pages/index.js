@@ -62,7 +62,7 @@ const Home = () => {
             onClick={handleSearch}
             disabled={!searchTerm}
           >
-            Seach
+            Search
           </button>
         </div>
         <div className='row_flex card_category'>
